@@ -1,0 +1,125 @@
+/* HTML CODE */
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <title>Recipe Organizer</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Recipe Organizer</h1>
+        <img src="C:\Users\Asus\Desktop\mii.jpg" alt="Delicious Recipes" class="homepage-image">
+        <form id="recipe-form">
+            <input type="text" id="recipe-name" placeholder="Recipe Name" required>
+            <textarea id="recipe-instructions" placeholder="Instructions" required></textarea>
+            <button type="submit">Add Recipe</button>
+        </form>
+        <ul id="recipe-list"></ul>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+
+/*CSS CODE*/
+body {
+    font-family: Arial, sans-serif;
+    background-image: url('"C:\Users\Asus\Desktop\background-image.jpg"');
+    background-size: cover;
+    background-position: center;
+    margin: 0;
+    padding: 20px;
+}
+
+.container {
+    max-width: 600px;
+    margin: auto;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.1);
+}
+
+h1 {
+    text-align: center;
+}
+
+.homepage-image {
+    width: 100%;
+    border-radius: 8px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+input, textarea {
+    margin: 10px 0;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+}
+
+button {
+    padding: 10px;
+    background-color: #28a745;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #218838;
+}
+
+ul {
+    list-style: none;
+    padding: 0;
+}
+
+li {
+    background: #e9ecef;
+    margin: 10px 0;
+    padding: 10px;
+    border-radius: 4px;
+    position: relative;
+}
+
+.delete-button {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    background: #dc3545;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/*JAVA SCRIPT CODE */
+document.getElementById('recipe-form').addEventListener('submit', function(event) {
+    event.preventDefault();
+
+    const recipeName = document.getElementById('recipe-name').value;
+    const recipeInstructions = document.getElementById('recipe-instructions').value;
+
+    addRecipe(recipeName, recipeInstructions);
+    
+    // Clear the input fields
+    document.getElementById('recipe-name').value = '';
+    document.getElementById('recipe-instructions').value = '';
+});
+
+function addRecipe(name, instructions) {
+    const recipeList = document.getElementById('recipe-list');
+    const listItem = document.createElement('li');
+    listItem.innerHTML = `<strong>${name}</strong><p>${instructions}</p><button class="delete-button" onclick="deleteRecipe(this)">Delete</button>`;
+    recipeList.appendChild(listItem);
+}
+
+function deleteRecipe(button) {
+    const recipeList = document.getElementById('recipe-list');
+    recipeList.removeChild(button.parentElement);
